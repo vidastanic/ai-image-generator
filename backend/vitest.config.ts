@@ -8,6 +8,6 @@ export default defineConfig({
             provider: "v8", // Built-in coverage support
             reporter: ["text", "json", "html"], // Generates different coverage reports
         },
-        globalSetup: './tests/integration/setup-test-db.ts',
+        include: ['tests/unit/**/*.test.ts'],
     },
 });

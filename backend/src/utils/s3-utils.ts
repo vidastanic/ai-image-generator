@@ -1,7 +1,6 @@
 import dotenv from "dotenv";
-import {S3Client, PutObjectCommand, GetObjectCommand} from "@aws-sdk/client-s3";
+import {S3Client, PutObjectCommand, GetObjectCommand, DeleteObjectCommand} from "@aws-sdk/client-s3";
 import {getSignedUrl} from "@aws-sdk/s3-request-presigner";
-const mime = require('mime-types')
 
 dotenv.config();
 
@@ -20,12 +19,11 @@ export async function uploadImageFromUrl(imageUrl: string, fileKey: string) {
 
         const contentType = response.headers.get("content-type") || "image/png"
 
-        const extension = mime.extension(contentType);
 
         // Set up S3 upload parameters
         const uploadParams = {
             Bucket: process.env.AWS_BUCKET_NAME,
-            Key: `${fileKey}.${ extension }`,
+            Key: fileKey,
             Body: imageBuffer,
             ContentType: contentType
         };
@@ -52,4 +50,8 @@ export async function fetchImagesByUser(imageIds: string[], fileKey: string) {
         const getObjectCommand = new GetObjectCommand(fetchParams(imageId));
         return await getSignedUrl(s3Client, getObjectCommand, { expiresIn: 3600 });
     }));
+}
+
+export async function deleteImageObject(key: string) {
+    await s3Client.send(new DeleteObjectCommand({ Bucket: process.env.AWS_BUCKET_NAME, Key: key }));
 }

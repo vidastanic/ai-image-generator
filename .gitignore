@@ -4,3 +4,13 @@ frontend/node_modules
 backend/.idea
 frontend/.idea
 backend/.env
+
+# Generated reports and local environments
+**/coverage/
+.env
+.env.*
+!.env.example
+!**/.env.example
+
+# Build output
+**/dist/

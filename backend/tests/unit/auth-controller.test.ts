@@ -1,6 +1,6 @@
 import {beforeEach, describe, expect, it, vi, Mock} from "vitest";
 import {NextFunction, Request, Response} from "express";
-import {loginUser, registerUser} from "../../src/controllers";
+import {loginUser, registerUser} from "../../src/controllers/auth-controller";
 import {ZodError} from "zod";
 import * as userModel from "../../src/models/user.model";
 

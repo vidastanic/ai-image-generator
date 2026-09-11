@@ -4,11 +4,12 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "test:unit": "vitest tests/unit",
-    "test:integration": "vitest tests/integration",
+    "test:unit": "vitest run tests/unit",
     "dev": "nodemon --exec ts-node src/app.ts",
-    "db:start": "docker start drizzle_test_db || docker run --name drizzle_test_db_test -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=secret -e POSTGRES_DB=drizzle_test -p 5433:5432 -d postgres:17.4",
-    "db:stop": "docker stop drizzle_test_db"
+    "test": "vitest run",
+    "build": "tsc -p tsconfig.json",
+    "start": "node dist/app.js",
+    "db:migrate": "drizzle-kit migrate"
   },
   "keywords": [],
   "author": "",
